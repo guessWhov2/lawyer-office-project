@@ -2,43 +2,30 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2>
             {{ __('Dashboard') }}
         </h2>
         <p>{{ __("You're logged in!") }}</p>
         @include('workbench')
         @if(session('message'))
-            <div class="alert alert-success">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="..." class="rounded me-2" alt="...">
+                    <strong class="me-auto">Sent</strong>
+                    <small>11 mins ago</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
                 {{ session('message') }}
+                </div>
             </div>
         @endif
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    @include('client.client-dash')
-                    
-                </div>
-            </div>
-        </div>
+    <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded container mb-2 h-100">
+        @include('client.client-dash')
+        
     </div>
+
 </x-app-layout>
 
-
-<!-- Dropdown Trigger -->
-<!-- Dropdown Menu -->
-<!--
-    <div x-data="{ open: false }" @click.away="open = false">
-  
-  <button @click="open = !open" class="px-4 py-2 bg-gray-200 hover:bg-gray-300">Toggle Dropdown</button>
-  
-  
-  <div x-show="open" class="absolute mt-2 py-2 bg-white border rounded shadow-md">
-    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 1</a>
-    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 2</a>
-    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Option 3</a>
-  </div>
-</div>
--->

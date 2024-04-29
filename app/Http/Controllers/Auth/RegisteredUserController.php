@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -30,21 +31,33 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'firstname' => ['required', 'string', 'max:16'],
+            'lastname' => ['required', 'string', 'max:16'],
+            'phone_number' => ['required', 'string', 'max:15'],             
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],             
+            'address' => ['required', 'string', 'max:32'],
+            'city' => ['required', 'string', 'max:16'],
+            'password' => ['required', 'string', 'min:8', Rules\Password::defaults()],
         ]);
+        // Assign the role
+        $clientRole = Role::where('name', 'Client')->first();
 
         $user = User::create([
-            'name' => $request->name,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'phone_number' => $request->phone_number,
             'email' => $request->email,
+            'address' => $request->address,
+            'city' => $request->city,
             'password' => Hash::make($request->password),
+            'role_id' => $clientRole->id,
         ]);
+        
+        $user->save();
 
         event(new Registered($user));
+        
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('login', absolute: false));
     }
 }

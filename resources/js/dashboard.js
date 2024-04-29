@@ -1,18 +1,23 @@
-// Validation event for client dashboard - form for legal case
-  // Add event listeners to form inputs
-  /*
-  document.getElementById('title').addEventListener('input', handleFormInput);
-  document.getElementById('description').addEventListener('input', handleFormInput);
-  // Function to check if form is valid
-  function isFormValid() {
-    var title = document.getElementById('title').value;
-    var description = document.getElementById('description').value;
-    return title.trim() !== '' && description.trim() !== '';
-  }
-  // Function to handle form input events
-  function handleFormInput() {
-    var submitButton = document.getElementById('submitButton');
-    submitButton.disabled = !isFormValid();
-  }
+// Form Validation - general
 
-*/
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+
+//

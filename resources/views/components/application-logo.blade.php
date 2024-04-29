@@ -1,7 +1,5 @@
-
-
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools width="800px" height="800px" viewBox="0 -3.17 49 49" -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -3.17 49 49" xmlns="" {{ $attributes }}>
+<!-- viewBox="0 -3.17 49 49"  -->
+<svg xmlns="http://www.w3.org/2000/svg"   >
 
 <g transform="translate(-627.977 -33.208)">
 

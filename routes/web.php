@@ -17,12 +17,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::post('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
     
     // Legal case
-    Route::post('/store', [LegalCaseController::class, 'store'])->name('add');
+    Route::post('/store', [LegalCaseController::class, 'store'])->name('store');
 });
-
+//Route::post('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // -
 Route::get('/lawyers', function(){
     return view('');

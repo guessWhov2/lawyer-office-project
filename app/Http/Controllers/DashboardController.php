@@ -14,7 +14,7 @@ class DashboardController extends Controller{
         $user = Auth::user();
 
         // Initialize userCases variable
-        $userCases = [];
+        $legalCases = [];
 
         // Check if the user is authenticated
         if($user){
