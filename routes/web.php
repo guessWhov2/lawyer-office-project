@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LegalCaseController;
 use App\Http\Controllers\ProfileController;
@@ -23,13 +24,15 @@ Route::middleware('auth')->group(function () {
     
     // Legal case
     Route::post('/store', [LegalCaseController::class, 'store'])->name('store');
+    Route::post('legalCase.details', [LegalCaseController::class, 'details'])->name('details');
 });
 //Route::post('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // -
 Route::get('/lawyers', function(){
     return view('');
 })->name('lawyers');
-
-//Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+Route::get('/test', function(){
+    return View('test');
+})->name('test');
 
 require __DIR__.'/auth.php';

@@ -28,9 +28,15 @@
         @endguest
       
       @auth
-      <li>
-        <a href="#">@include('profile.edit')</a>
-      </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Profile</a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Edit profile</a></li>
+            
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+          </ul>
+        </li>
       @endauth
       </ul>
     </div>

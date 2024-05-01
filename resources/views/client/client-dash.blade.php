@@ -18,7 +18,7 @@
             </li>
             <li class="nav-item mx-1">
                 <p class="d-inline-flex gap-1">
-                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExampleThree" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExampleThree" role="button" `aria-expanded="false" aria-controls="collapseExample">
                     Meeting
                 </a>
                 </p>
@@ -31,23 +31,18 @@
             </div>
         </div>
         <div class="collapse" id="collapseExampleTwo">
-            <div class="card card-body d-flex flex-md-row justify-content-around">
-            @include('legal_case.overview')           
+            <div class="card card-body d-flex justify-content-around">
+            @include('legalCase.overview')           
+            </div>
+        </div>
+        <div class="collapse" id="collapseExampleThree">
+            <div class="card card-body d-flex justify-content-around">
+            @include('components.meeting')           
             </div>
         </div>
     </div>
-    
-    
 </div>
-                
 
-
-
-@isset($legalCases)
-
-                    <?php //@include('legal_case.overview') ?>
-
-@endisset
 <!--
 <p class="d-inline-flex gap-1">
   <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">

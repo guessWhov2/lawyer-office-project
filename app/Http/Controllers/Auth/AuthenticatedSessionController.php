@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -25,13 +26,15 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
-    {
+    {Log::info('-------------');
         $request->authenticate();
-
         $request->session()->regenerate();
+        
+        /*
         $caseTypes = Cache::rememberForever('case_types', function () {
             return CaseType::all();
         });
+        */
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
@@ -45,7 +48,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-        Cache::flush();
+        //Cache::flush()
+        //Auth()->logout();
         return redirect('/');
     }
 }

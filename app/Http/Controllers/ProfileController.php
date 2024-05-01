@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -16,6 +17,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
@@ -25,7 +27,7 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
+    {Log::info('-------------');
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {

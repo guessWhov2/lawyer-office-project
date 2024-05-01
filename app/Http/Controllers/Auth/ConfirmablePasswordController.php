@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -15,7 +16,7 @@ class ConfirmablePasswordController extends Controller
      * Show the confirm password view.
      */
     public function show(): View
-    {
+    {Log::info('-------------');
         return view('auth.confirm-password');
     }
 
@@ -23,7 +24,7 @@ class ConfirmablePasswordController extends Controller
      * Confirm the user's password.
      */
     public function store(Request $request): RedirectResponse
-    {
+    {Log::info('-------------');
         if (! Auth::guard('web')->validate([
             'email' => $request->user()->email,
             'password' => $request->password,
