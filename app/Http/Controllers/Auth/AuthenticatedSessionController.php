@@ -26,15 +26,15 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
-    {Log::info('-------------');
+    {
         $request->authenticate();
         $request->session()->regenerate();
         
-        /*
-        $caseTypes = Cache::rememberForever('case_types', function () {
+        
+        $caseTypes = Cache::rememberForever('caseTypes', function () {
             return CaseType::all();
         });
-        */
+        
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
@@ -48,8 +48,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-        //Cache::flush()
-        //Auth()->logout();
+        Cache::flush();
+        
         return redirect('/');
     }
 }

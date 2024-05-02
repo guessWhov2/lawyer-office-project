@@ -40,8 +40,11 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'string', 'min:8', Rules\Password::defaults()],
         ]);
         // Assign the role
-        $clientRole = Role::where('name', 'Client')->first();
-
+        if($request->input('role_id')){
+            $clientRole = $request->input('role_id');
+        }else{
+            $clientRole = Role::where('name', 'Client')->first();
+        }
         $user = User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,

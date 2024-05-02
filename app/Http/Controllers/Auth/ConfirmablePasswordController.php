@@ -16,7 +16,7 @@ class ConfirmablePasswordController extends Controller
      * Show the confirm password view.
      */
     public function show(): View
-    {Log::info('-------------');
+    {
         return view('auth.confirm-password');
     }
 
@@ -24,7 +24,7 @@ class ConfirmablePasswordController extends Controller
      * Confirm the user's password.
      */
     public function store(Request $request): RedirectResponse
-    {Log::info('-------------');
+    {
         if (! Auth::guard('web')->validate([
             'email' => $request->user()->email,
             'password' => $request->password,
@@ -36,6 +36,7 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('profile.edit', absolute: false));
+        
     }
 }

@@ -16,8 +16,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // Auth check
-        return auth()->check();
+        return true;
     }
 
     /**
@@ -28,8 +27,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
+           'email' => ['required', 'string', 'email'],
+           'password' => ['required', 'string'],
         ];
     }
 

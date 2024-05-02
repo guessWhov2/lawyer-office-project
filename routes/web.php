@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\DashboardController;
@@ -28,11 +29,14 @@ Route::middleware('auth')->group(function () {
 });
 //Route::post('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // -
-Route::get('/lawyers', function(){
-    return view('');
-})->name('lawyers');
-Route::get('/test', function(){
-    return View('test');
-})->name('test');
+Route::get('/lawyers', function(){return view('');})->name('lawyers');
+
+Route::get('/test', function(){return view('/test');})->name('test');
+Route::get('admin.panel', [AdminController::class, 'index'])->name('kurcina');
+Route::get('/type/{param}', [AdminController::class, 'show'])->name('type');
+Route::get('/status/{param}', [AdminController::class, 'show'])->name('status');
+Route::get('/show/{param}', [AdminController::class, 'show'])->name('all');
+Route::get('/test', function(){return view('test');})->name('update');
+
 
 require __DIR__.'/auth.php';

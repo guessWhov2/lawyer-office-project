@@ -11,10 +11,9 @@ use Illuminate\Support\Facades\Log;
 class DashboardController extends Controller{
     
     
-    public function index(Request $request){Log::info('-------------');
+    public function index(Request $request){
         // Retrieve the authenticated user
         $user = Auth::user();
-        Log::info($request);
         
         // Initialize userCases variable
         $legalCases = [];
@@ -25,8 +24,8 @@ class DashboardController extends Controller{
             $legalCases = LegalCase::where('user_id', $user->id)->get();
         }
         // Get role to display right content
-        $userRole = Role::where('id', $user->role_id);
-        Log::info($userRole);
+        $userRole = Role::where('id', $user->role_id)->first();
+        
         // Data for view
         return view('dashboard', ['legalCases' => $legalCases, 'user' => $user, 'userRole' => $userRole]);
     }

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Cache;
     <div class="input-group mb-3">
       <label class="input-group-text" for="inputGroupSelect01">Case type</label>
       <select class="form-select" id="case_type_id" name="case_type_id">
-      @isset($caseType)  
+      @isset($caseTypes)  
       @foreach($caseTypes as $caseType)
         <option name="" value="{{ $caseType->id }}">{{ $caseType->name }}</option>
         @endforeach

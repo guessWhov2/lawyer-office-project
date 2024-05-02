@@ -27,7 +27,7 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
-    {Log::info('-------------');
+    {
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -47,7 +47,7 @@ class ProfileController extends Controller
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
         ]);
-
+        /*
         $user = $request->user();
 
         Auth::logout();
@@ -56,7 +56,7 @@ class ProfileController extends Controller
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
+        */
         return Redirect::to('/');
     }
 }
