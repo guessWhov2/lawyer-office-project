@@ -22,10 +22,9 @@ class UserSeeder extends Seeder
                 'lastname' => $data[1],
                 'phone_number' => $data[2],
                 'email' => $data[3],
-                'email_verified_at' => $data[4],
-                'address' => $data[5],
-                'city' => $data[6],
-                'password' => Hash::make($data[7]), // Hash the password
+                'address' => $data[4],
+                'city' => $data[5],
+                'password' => Hash::make($data[6]),
                 // Add other columns as needed
             ]);
         }

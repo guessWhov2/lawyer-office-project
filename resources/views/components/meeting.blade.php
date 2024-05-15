@@ -1,9 +1,7 @@
 <?php  // parent containenr
 ?>
 <div class="row">
-  <!-- Button trigger modal -->
-  
-    
+
   <div class="col-auto input-group log-event"
     id="datetimepicker1"
     data-td-target-input="nearest"
@@ -21,10 +19,16 @@
     <input
       id="datetimepicker1Input"
       type="text"
-      class="form-control col"
+      class="form-control col rounded-end"
       data-td-target="#datetimepicker1"/>
-    
-      <button class="btn btn-outline-secondary" type="button">Request</button>
+      <input type="hidden" name="data" value="">
+      <input type="hidden" name="time" value="">
+      
+  </div>
+  <div class="col-12 input-group mt-2">
+    <span class="input-group-text">Agenda</span>
+    <input type="text" class="form-control">
+    <button class="btn btn-outline-primary" type="button">Request</button>
   </div>
 </div>
 <div class="row">
@@ -41,7 +45,7 @@
       Request
     </button>
 -->
-<!-- Modal - show for form -->
+<!-- Modal - show for form 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -64,3 +68,14 @@
   </div>
 </div>
 </div>
+-->
+
+<script>
+  const mainInput = document.getElementById('datetimepicker1Input');
+
+  mainInput.addEventListener('change', function(){
+    let values = mainInput.value.split(' ');
+    mainInput.nextElementSibling.value = values[0].trim();
+    mainInput.nextElementSibling.nextElementSibling.value = values[1].trim();
+  });
+</script>

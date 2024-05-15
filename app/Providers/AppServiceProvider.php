@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\LegalCase;
+use App\Policies\LegalCasePolicy;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+
     }
 
     /**
@@ -20,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::policy(LegalCase::class, LegalCasePolicy::class);
         Paginator::useBootstrap();
     }
 }

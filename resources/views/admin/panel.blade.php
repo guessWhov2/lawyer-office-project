@@ -13,28 +13,30 @@ $caseTypes = CaseType::all();
         </div>
     </div>
     <ul class="nav border-bottom border-dark pb-2 mb-5">
-        <li class="nav-item">
-            <a class="btn btn-primary" href="#addOptions" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="addOptions" 
-            data-bs-parent="#optionsParent">User - CRUD</a>
+        <li class="nav-item me-2">
+            <a class="btn btn-primary" href="#addOptions" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="addOptions" data-bs-parent="#optionsParent">User</a>
         </li>
         <li class="nav-item">
-            <a class="btn btn-success" href="#displayLegalCase" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="displayLegalCase" 
-            data-bs-parent="#optionsParent">Case - Display</a>
+            <a class="btn btn-success me-2" href="#displayLegalCase" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="displayLegalCase" data-bs-parent="#optionsParent">Case</a>
+        </li>
+        <li class="nav-item">
+            <a class="btn btn-danger me-2" href="#displayAdmin" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="displayAdmin" data-bs-parent="#optionsParent">Admin</a>
         </li>
         <span class="flex-grow-1"></span>
         <li class="nav-item">
-            <form class="input-group" role="search">
-                <select name="" id="" class="btn border border-secondary col-auto">
+            <form class="input-group" role="search" method="post" action="{{ route('search') }}">
+                @csrf
+                <select name="searchFilter" class="btn border border-primary col-auto rounded-start">
                     <option value="">Filter</option>
-                    <option value="">First name</option>
-                    <option value="">Last name</option>
-                    <option value="">Email</option>
-                    <option value="">Phone number</option>
-                    <option value="">Address</option>
-                    <option value="">City</option>
+                    <option value="firstname">First name</option>
+                    <option value="lastname">Last name</option>
+                    <option value="email">Email</option>
+                    <option value="phone_number">Phone number</option>
+                    <option value="address">Address</option>
+                    <option value="city">City</option>
                 </select>
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input class="form-control" type="search" placeholder="Search users" aria-label="Search" name="searchInput">
+                <button class="btn btn-outline-primary" type="submit">Search</button>
             </form>
         </li>
         <li class="nav-item">
@@ -45,9 +47,26 @@ $caseTypes = CaseType::all();
 
 
 
-
+    <!-- user block -->
     <div class="row collapse" id="addOptions">
+        <!-- USERS SEARCCH -->
+        <div class="col-12 mb-4">
+            <p class="m-0 p-0 lead d-block ms-4">User - Display</p>
+            <div class="nav-item btn-group" role="group" aria-label="Default button group">
+                <div class="dropdown btn-group">
+                    <button class="btn btn-outline-primary border-end-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Role
+                    </button>
+                    <ul class="dropdown-menu">
+                        @foreach($roles as $role)
+                        <li><a class="dropdown-item" href="{{ route('role', ['param' => $role->id]) }}">{{ $role->name }}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-outline-primary"><a href="{{ route('userall', ['param' => 'all']) }}" style="text-decoration:none;">All Users</a></button>
 
+            </div>
+        </div>
         <div class="col-12 mb-4" id="">
             <p class="m-0 p-0 lead d-block ms-4">User - Add</p>
             @foreach($roles as $role)
@@ -66,16 +85,19 @@ $caseTypes = CaseType::all();
         </div>
         <div class="col-12">
             <p class="m-0 p-0 lead d-block ms-4">User - Edit</p>
+            <div class="btn-group" role="group" aria-label="Form & role group">
+                <button type="button" class="btn btn-outline-primary" data-bs-target="#" data-bs-toggle="modal" aria-expanded="false" aria-controls="#" data-bs-parent="#addParent">Edit by ID</button>
+            </div>
             <p class="m-0 p-0 lead d-block ms-4">User - Delete</p>
+            <button type="button" class="btn btn-outline-primary" data-bs-target="#" data-bs-toggle="modal" aria-expanded="false" aria-controls="#" data-bs-parent="#addParent">Delete by ID</button>
         </div>
 
     </div>
     <!-- Legal case buttons  -->
+    <!--
     <div class="row text-center collapse" id="displayLegalCase">
-        <div class="col-12">
-        <p class="m-0 p-0 lead d-block ms-4">Case - Select/Display</p>
-        </div>
-        <div class="col-6">
+        <div class="col-12 mb-4">
+            <p class="m-0 p-0 lead d-block ms-4">Case - Display</p>
             <div class="nav-item btn-group" role="group" aria-label="Default button group">
                 <div class="dropdown btn-group">
                     <button class="btn btn-outline-success border-end-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -87,9 +109,7 @@ $caseTypes = CaseType::all();
                         <li><a class="dropdown-item" href="{{ route('status', ['param' => 'Pending']) }}">Pending</a></li>
                     </ul>
                 </div>
-
-
-                <button type="button" class="btn btn-outline-success"><a href="{{ route('all', ['param' => 'all']) }}" style="text-decoration:none;">All Cases</a></button>
+                <button type="button" class="btn btn-outline-success"><a href="{{ route('caseall', ['param' => 'all']) }}" style="text-decoration:none;">All Cases</a></button>
                 <div class="dropdown btn-group">
                     <button class="btn btn-outline-success rounded-end" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Type
@@ -102,24 +122,24 @@ $caseTypes = CaseType::all();
                 </div>
             </div>
         </div>
-        <!-- USERS SEARCCH -->
-        <div class="col-6">
-        <div class="nav-item btn-group" role="group" aria-label="Default button group">
-                <div class="dropdown btn-group">
-                    <button class="btn btn-outline-success border-end-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Role
-                    </button>
-                    <ul class="dropdown-menu">
-                        @foreach($roles as $role)
-                        <li><a class="dropdown-item" href="#">$role->name</a></li>
-                        @endforeach
-                    </ul>
-                </div>
 
+    </div>
+-->
+    <div class="row collapse text-end" id="displayAdmin">
+        <div class="col-12 mb-4">
+            <p class="m-0 p-0 lead d-block ms-4">Admin</p>
+            <div class="btn-group" role="group" aria-label="Admin buttons group">
+                <button type="button" class="btn btn-outline-danger" data-bs-target="#m" data-bs-toggle="modal" aria-expanded="false" aria-controls="" data-bs-parent="#">Add admin - form</button>
+                <button type="button" class="btn btn-outline-danger" data-bs-target="#m" data-bs-toggle="modal" aria-expanded="false" aria-controls="" data-bs-parent="#">Make user admin - ID</button>
 
-                <button type="button" class="btn btn-outline-success"><a href="" style="text-decoration:none;">All Users</a></button>
-                <a href="#" class="btn btn-outline-success">Calendar</a>
             </div>
+        </div>
+        <div class="col-12 mb-4">
+            <button type="button" class="btn btn-outline-danger" data-bs-target="#m" data-bs-toggle="modal" aria-expanded="false" aria-controls="" data-bs-parent="#">Display all</button>
+            <button type="button" class="btn btn-outline-danger" data-bs-target="#m" data-bs-toggle="modal" aria-expanded="false" aria-controls="" data-bs-parent="#">Edit admin user - ID</button>
+        </div>
+        <div class="col-12 mb-4">
+            <button type="button" class="btn btn-outline-danger" data-bs-target="#m" data-bs-toggle="modal" aria-expanded="false" aria-controls="" data-bs-parent="#">Delete admin user - ID</button>
         </div>
     </div>
 
@@ -139,45 +159,7 @@ $caseTypes = CaseType::all();
                 <form method="POST" action="{{ route('register') }}" class="row border-top border-bottom py-2 needs-validation" novalidate>
                     @csrf
                     <div class="modal-body">
-                        <!-- Firstname -->
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Firstname</span>
-                            <input name="firstname" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
-                        </div>
-                        <!-- Lastname -->
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Lastname</span>
-                            <input name="lastname" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
-                        </div>
-                        <!-- Email -->
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
-                            <input name="email" type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
-                        </div>
-                        <!-- Phone number -->
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Phone number</span>
-                            <input name="phone_number" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
-                        </div>
-                        <!-- Address -->
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
-                            <input name="address" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
-                        </div>
-                        <!-- City -->
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">City</span>
-                            <input name="city" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
-                        </div>
-                        <!-- Password -->
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
-                            <input name="password" type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required autocomplete="new-password" required>
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Confirm password</span>
-                            <input name="confiirm-password" type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required autocomplete="new-password" required>
-                        </div>
+                        @include('components.register-form')
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-default">Role-{{ $role->name }}</span>
                             <input name="role_id" value="{{ $role->id }}" type="hidden" readonly class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required autocomplete="role_id" required>
@@ -268,6 +250,6 @@ $caseTypes = CaseType::all();
     </div>
     <?php // Search  
     ?>
-   
+
 
 </x-app-layout>

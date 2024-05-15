@@ -27,8 +27,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    
-
     /**
      * Get the attributes that should be cast.
      *
@@ -41,10 +39,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function legalCases(){
-        return $this-> hasMany(LegalCase::class);
+
+    // Relations
+    public function legalCases()
+    {
+        return $this->hasMany(LegalCase::class);
     }
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
+    }
+    public function lawyer()
+    {
+        return $this->hasOne(Lawyer::class);
     }
 }

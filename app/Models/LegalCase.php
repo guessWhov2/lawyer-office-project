@@ -15,6 +15,9 @@ class LegalCase extends Model
         'description',
         'user_id',
         'status',
+        'lawyer_id',
+        'start_date',
+        'end_date'
     ];
 
     public function user()
@@ -26,7 +29,12 @@ class LegalCase extends Model
     {
         return $this->belongsTo(CaseType::class);
     }
-    public function notes(){
+    public function notes()
+    {
         return $this->hasMany(Note::class);
+    }
+    public function lawyer()
+    {
+        return $this->belongsTo(Lawyer::class);
     }
 }

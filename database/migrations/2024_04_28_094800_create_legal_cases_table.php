@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->unsignedBigInteger('case_type_id');
-            $table->string('description');
+            $table->text('description');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->enum('status', ['open', 'closed', 'pending'])->default('pending');
             $table->timestamps();
