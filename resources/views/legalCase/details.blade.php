@@ -6,8 +6,9 @@
                 <a class="btn btn-outline-primary" href="{{route('dashboard') }}">Back</a>
             </div>
             <div class="col-auto flex-grow-1 text-center">
-                <h6 class="display-6">Case Overview</h6>
+                <h6 class="display-6">Case Overview </h6>
             </div>
+            @if($selectedCase->status === 'open')
             <div class="col-auto">
                 <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addNoteModal">Add note</button>
 
@@ -31,6 +32,31 @@
                     </div>
                 </div>
             </div>
+            <!-- ---------------------------------------------------------------- -->
+            @if(Auth::user()->isLawyer())
+            <div class="col-auto">
+                <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#closeCaseModal">Close case</button>
+            </div>
+             <!-- Modal -->
+             <div class="modal fade" id="closeCaseModal" tabindex="-1" aria-labelledby="closeCaseModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="{{ route('add') }}" method="post">
+                            @csrf
+                            <div class="modal-header justify-content-between">
+                                <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <a href="{{ route('decline', ['id' => $selectedCase->id])}}" class="btn btn-outline-danger">Close case</a>
+                            </div>
+                            <div class="modal-body">
+                                <p class="lead p-0 m-2">Are you sure you want to close this case?</p>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+            @endif
+            <!-- ---------------------------------------------------------------- -->
+            @endif
         </div>
         <div class="row position-relative justify-content-end">
             <div class="col-auto my-4" id="informationParent">

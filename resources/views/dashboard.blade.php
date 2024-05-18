@@ -16,11 +16,11 @@ $caseTypes = Cache::get('caseTypes');
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-        @if($userRole->name == 'Client')
+        @if(Auth::user()->role->name == 'Client')
         @include('client.client-dash')
-        @elseif($userRole->name == "Lawyer")
+        @elseif(Auth::user()->role->name == "Lawyer")
         @include('lawyer.lawyer-dash')
-        @elseif($userRole->name == "Staff")
+        @elseif(Auth::user()->role->name == "Staff")
 
         @else
 

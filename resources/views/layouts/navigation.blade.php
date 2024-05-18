@@ -2,7 +2,7 @@
 
 ?>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom" style="background-color: transparent !important;">
+<nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: transparent !important;">
 
   <div class="container-fluid position-relative">
     <a class="navbar-brand" href="#"> </a>
@@ -39,7 +39,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Profile</a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Settings</a></li>
+            <li><a class="dropdown-item" href="{{ route('password-confirm') }}">Settings</a></li>
 
             <li>
               <hr class="dropdown-divider">

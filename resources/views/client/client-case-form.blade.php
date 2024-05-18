@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Cache;
 
 ?>
 
-  <form action="{{ route('store') }}" method="POST" class="w-50">
+  <form action="{{ route('store') }}" method="POST">
     @csrf
     <p class="lead py-1 my-2 mb-4 px-2 border-bottom col-12">Please, include as much detaiils as possible</p>
     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Cache;
       <label class="input-group-text" for="inputGroupSelect01">Case type</label>
       <select class="form-select" id="case_type_id" name="case_type_id">
       @isset($caseTypes)  
-      @foreach($caseTypes as $caseType)
-        <option name="" value="{{ $caseType->id }}">{{ $caseType->name }}</option>
+        @foreach($caseTypes as $caseType)
+          <option name="" value="{{ $caseType->id }}">{{ $caseType->name }}</option>
         @endforeach
-@endisset
+      @endisset
       </select>
     </div>
 

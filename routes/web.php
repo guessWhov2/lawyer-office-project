@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LegalCaseController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AppointmentController;
 use App\Models\Lawyer;
 use App\Models\LegalCase;
 use Illuminate\Support\Facades\File;
@@ -44,6 +45,10 @@ Route::middleware('auth')->group(function () {
 
     // Note
     Route::post('/note/add', [NoteController::class, 'store'])->name('add');
+
+    // Appintments
+    Route::post('/appointment/add', [AppointmentController::class, 'store'])->name('appointment.add');
+    Route::put('/appointment/{id}', [AppointmentController::class, 'update'])->name('appointment.update');
 });
 // Legal case group
 Route::group(['prefix' => 'case', 'middleware' => ['auth']], function () {

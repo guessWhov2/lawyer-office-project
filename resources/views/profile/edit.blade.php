@@ -29,7 +29,8 @@
     });
     
     function triggerMe(e){
-        e.click()
+        //e.click()
+        windows.location.href = "";
     }
 
 </script> 

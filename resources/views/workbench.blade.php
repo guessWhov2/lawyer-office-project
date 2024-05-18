@@ -1,8 +1,6 @@
 <nav class="nav shadow-lg mb-3 p-2 bg-body-tertiary border-top rounded mt-3 mx-3 justify-content-between">
     <div class="btn-group" role="group" aria-label="Default button group">
-        <button type="button" class="btn btn-outline-primary">Meeting</button>
         <button type="button" class="btn btn-outline-primary">All Clients</button>
-        <button type="button" class="btn btn-outline-primary">Schedule</button>
     </div>
     <span class="flex-grow-1"></span>
 

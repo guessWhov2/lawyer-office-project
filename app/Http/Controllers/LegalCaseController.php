@@ -60,7 +60,7 @@ class LegalCaseController extends Controller
     public function index(Request $request, $param)
     {
         $userCheck = Auth::user();
-        
+        // use denies instead of cannot - said by tabnine
         if ($userCheck->cannot('viewany', LegalCase::class)) {
             abort(403, 'Unauthorized action.');
         }
@@ -73,6 +73,7 @@ class LegalCaseController extends Controller
             switch ($value) {
                 case 'type':
                     $displayData = LegalCase::where('case_type_id', $param)->with('user')->paginate(10);
+                    $param = $displayData->first()?->caseType->name ;
                     break;
                 case 'status':
                     $displayData = LegalCase::where('status', strtolower($param))->with('user')->paginate(10);
@@ -91,7 +92,7 @@ class LegalCaseController extends Controller
         return view('legalCase.show', ['legalCases' => $displayData, 'filter' => $param]);
     }
 
-    // Edit/update a legal case
+    // Edit/update a legal case  -- missing policy
     public function edit(Request $request, $id)
     {
         // Get the legal case with the given ID
@@ -122,7 +123,7 @@ class LegalCaseController extends Controller
                     break;
             }
         }
-        return view('dashboard', ['legalCase' => $legalCase]);
+        return redirect()->back();
     }
 
     //Legal case display

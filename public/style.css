@@ -1,12 +1,5 @@
-/* Color change for calendar */
-    /* Change background color of datepicker container */
-    /*
-.tempus-dominus .datepicker {
-    background-color: #f0f0f0 !important;
+body {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url("./assets/img/bg-1.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
-
-    
-.tempus-dominus .timepicker {
-    background-color: #f0f0f0; 
-}
-*/

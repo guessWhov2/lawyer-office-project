@@ -22,4 +22,7 @@ class Lawyer extends Model
     {
         return $this->hasMany(LegalCase::class);
     }
+    public function appointments(){
+        return $this->hasMany(Appointment::class);
+    }
 }
