@@ -1,64 +1,52 @@
 <x-guest-layout>
-<div class="container w-50 d-flex flex-column vh-100 justify-content-center align-items-center shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
-    <div class="row w-100 justify-content-center">
-        <div class="col-auto my-2 p-0" style="height:60px;width:60px;">
-            <a href="{{ route('home') }}">@include('components.application-logo')</a>
-        </div>
-        <div class="col-12">
-            <p class="p-0 m-0 lead w-100 text-start">Register</p>
-        </div>
+<div class="container w-50 d-flex flex-column bg-transparent position-absolute top-50 start-50 translate-middle" style="margin-top: -50px;">
+    <div class="row w-100 justify-content-start align-items-end">
+            <p class="p-0 m-0 lead w-auto text-start d-inline-block">Register</p>
+            <a href="{{ route('home') }}" class="fs-1 w-auto d-inline-block mx-auto translate-middle-x">@include('components.application-logo')</a>
     </div>
-    <form method="POST" action="{{ route('register') }}" class="row border-top border-bottom py-2 needs-validation" novalidate>
+    <form method="POST" action="{{ route('register') }}" class="row border-top py-2 needs-validation" novalidate>
         @csrf        
         <!-- Firstname -->
         <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Firstname</span>
             <input name="firstname" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-            required>
+            required placeholder="Firstname">
         </div>
         <!-- Lastname -->
         <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Lastname</span>
             <input name="lastname" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-            required>
+            required placeholder="Lastname">
         </div>
         <!-- Email -->
         <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
-            <input name="email" type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-            required>
+            <input name="email" type="email" class="form-control" aria-label="Sizing example input" 
+            aria-describedby="inputGroup-sizing-default" required placeholder="Email">
         </div>
         <!-- Phone number -->
         <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Phone number</span>
             <input name="phone_number" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-            required>
+            required placeholder="Phone number">
         </div>
         <!-- Address -->
         <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
             <input name="address" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-            required>
+            required placeholder="Address">
         </div>
         <!-- City -->
         <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">City</span>
             <input name="city" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-            required>
+            required placeholder="City">
         </div>
         <!-- Password -->
         <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
             <input name="password" type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-            required autocomplete="new-password" required>
+            required autocomplete="new-password" required placeholder="Password">
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Confirm password</span>
             <input name="confiirm-password" type="password"  class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-            required autocomplete="new-password" required>
+            required autocomplete="new-password" required placeholder="Confirm password">
         </div>
         <div class="input-group mb-3 justify-content-center">
-            <button class="btn btn-outline-primary" type="submit">Sign up</button>
+            <button class="btn btn-outline-light px-4" type="submit">Register</button>
         </div>
     </form>    
 </div>

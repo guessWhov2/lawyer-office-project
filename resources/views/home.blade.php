@@ -33,6 +33,12 @@
             <a href="{{ route('team') }}" class="btn btn-outline border btnMeetTeam">Meet Our Team</a>
         </div>
     </div>
+    <div class="row m-0 mt-5 me-5 justify-content-end">
+        <div class="col-auto text-center mt-5 me-5">
+            
+            <a href="{{ route('register') }}" class="btn btn-outline border btnMeetTeam px-5 rounded-pill me-5 fs-4">Join for free</a>
+        </div>
+    </div>
     @include('components.footer')
     
 </body>

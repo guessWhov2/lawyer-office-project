@@ -16,13 +16,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="">
+<body class="wh-100 wv-100">
     <header>
         @include('layouts.navigation')
     </header>
-    <div>
+    
         {{ $slot }}
-    </div>
+        
 </body>
 
 </html>

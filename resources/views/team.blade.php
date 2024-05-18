@@ -4,7 +4,7 @@ $url = asset('assets/img/lawyer-1.jpg');
 ?>
 <x-guest-layout>
 
-    <div class="container shadow-lg p-3 mb-5 bg-body-tertiary rounded mt-4">
+    <div class="container p-3 mb-5 bg-transparent rounded mt-4">
         <div class="row my-2 mb-4">
             <h6 class="display-6 text-center">Meet the Team</h6>
             <small class="text-end"><i>Our advice is - "Hold on tight and enjoy the ride"</i></small>
