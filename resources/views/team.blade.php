@@ -7,13 +7,14 @@ $url = asset('assets/img/lawyer-1.jpg');
     <div class="container shadow-lg p-3 mb-5 bg-body-tertiary rounded mt-4">
         <div class="row my-2 mb-4">
             <h6 class="display-6 text-center">Meet the Team</h6>
+            <small class="text-end"><i>Our advice is - "Hold on tight and enjoy the ride"</i></small>
         </div>
         <div class="row justify-content-around">
 
             @foreach($lawyers as $key => $lawyer)
 
             <div class="card mb-4 px-0 rounded border-0 position-relative" style="width: 18rem;">
-                <div class="rounded m-2 p-0  position-absolute bottom-0 start-0" style="box-shadow: 0px 5px 15px white;">
+                <div class="rounded m-2 p-0  position-absolute bottom-0 start-0 btnMeetTeam">
                     <button class="w-auto btn btn-outline-dark text-white" type="button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLawyerInfo{{ $lawyer->user->id }}" aria-expanded="false" aria-controls="collapseLawyerInfo{{ $lawyer->user->id }}">More</button>
                 </div>
                 <?php $x = asset('assets/img/team/lawyer-' . (($count == 5) ? $count = 1 : $count) . '.jpg'); ?>

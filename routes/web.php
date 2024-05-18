@@ -22,6 +22,9 @@ Route::get('/lawyers', function () {
     $filePaths = File::glob(public_path('assets/img/team/*.jpg'));
     return view('team', ['lawyers' => $lawyers, 'filePaths' => $filePaths]);
 })->name('team');
+Route::get('about', function (){
+    return view('about');
+})->name('about');
 
 
 Route::middleware('auth')->group(function () {

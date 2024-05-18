@@ -3,7 +3,7 @@
     <div class="row w-100 justify-content-center">
         <div class="col-auto p-0" style="height:60px;width:60px;">
         <span class="h-auto w-auto">
-            <a href="{{ route('home') }}">@include('components.application-logo')</a>
+            <a href="{{ route('home') }}" class="fs-1">@include('components.application-logo')</a>
         </span>
         </div>
         

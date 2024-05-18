@@ -1,4 +1,5 @@
-<!-- viewBox="0 -3.17 49 49"  -->
+<i class="bi bi-bank text-light opacity-75"></i>
+<!-- viewBox="0 -3.17 49 49"  
 <svg xmlns="http://www.w3.org/2000/svg"   >
 
 <g transform="translate(-627.977 -33.208)">
@@ -32,3 +33,4 @@
 </g>
 
 </svg>
+-->
