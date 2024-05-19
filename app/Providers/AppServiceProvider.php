@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\AdminQuery;
 use App\Models\LegalCase;
 use App\Policies\LegalCasePolicy;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,5 +28,14 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::policy(LegalCase::class, LegalCasePolicy::class);
         Paginator::useBootstrap();
+
+        DB::listen(function($query) {
+            AdminQuery::create([
+                'admin_id' => auth()->id(), // ID trenutno prijavljenog admina
+                'method' => $query->connection->getName(), // Naziv korišćene baze podataka
+                'query' => $query->sql, // SQL upit koji je izvršen
+            ]);
+        });
+        
     }
 }

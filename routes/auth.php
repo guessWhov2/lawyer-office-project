@@ -59,6 +59,3 @@ Route::middleware('auth')->group(function () {
 
 
 });
-// PRODUCTION
-Route::GET('logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->name('logout');

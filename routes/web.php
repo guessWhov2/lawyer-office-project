@@ -85,9 +85,5 @@ Route::get('/user/role/{param}', [AdminController::class, 'show'])->name('role')
 Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('user.edit');
 Route::post('/user/{id}', [AdminController::class, 'update'])->name('save');
 
-Route::get('/test', function () {
-    return view('test');
-})->name('update');
-
 
 require __DIR__ . '/auth.php';

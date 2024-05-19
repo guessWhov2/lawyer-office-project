@@ -23,9 +23,6 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('about') }}">About Us</a>
         </li>
-        <li class="nav-item">
-          <a class=" btn btn-outline-info" href="{{ route('test') }}">Login before panel</a>
-        </li>
         <li class="flex-grow-1  ">
           <span></span>
         </li>
