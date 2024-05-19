@@ -45,6 +45,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(LegalCase::class);
     }
+    public function notes(){
+        return $this->hasMany(Note::class);
+    }
+    public function appointment(){
+        return $this->hasOne(Appointment::class);
+    }
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -53,11 +59,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Lawyer::class);
     }
-    public function notes(){
-        return $this->hasMany(Note::class);
-    }
-    public function appointment(){
-        return $this->hasOne(Appointment::class);
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
     }
 // Methods
     public function getFullNameAttribute()

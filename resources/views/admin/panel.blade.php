@@ -6,56 +6,71 @@ use App\Models\Role;
 $roles = Role::all();
 $caseTypes = CaseType::all();
 ?>
-<x-app-layout>
-    <div class="row my-2">
-        <div class="col-12">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="dark">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        .bg-black-op {
+            background-color: rgb(0, 0, 0, 0.7);
+        }
+    </style>
+</head>
+
+<body class="container mt-5">
+    
+    <div class="row m-0 my-4 justify-content-between align-items-center border-bottom">
+        <div class="col-auto">
             <h6 class="display-6">Admin panel</h6>
         </div>
+        <div class="col-auto flex-grow-1">
+            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('logout') }}">Logout</a>
+        </div>
+        <div class="col-auto">
+        <div class="input-group col flex-shrink-1">
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary rounded-end-0 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Filter</button>
+
+            <input type="hidden" readonly name="filter" value="">
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" value="first_name">First name</a></li>
+                <li><a class="dropdown-item" value="last_name">Last name</a></li>
+                <li><a class="dropdown-item" value="phone_number">Phone number</a></li>
+                <li><a class="dropdown-item" value="city">City</a></li>
+            </ul>
+        </div>
+
+        <input type="text" class="form-control col" aria-label="Search" value="Search">
+        <button class="btn btn-outline-primary " type="submit"><i class="bi bi-search"></i></button>
     </div>
-    <ul class="nav border-bottom border-dark pb-2 mb-5">
-        <li class="nav-item me-2">
-            <a class="btn btn-primary" href="#addOptions" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="addOptions" data-bs-parent="#optionsParent">User</a>
-        </li>
-        <li class="nav-item">
-            <a class="btn btn-success me-2" href="#displayLegalCase" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="displayLegalCase" data-bs-parent="#optionsParent">Case</a>
-        </li>
-        <li class="nav-item">
-            <a class="btn btn-danger me-2" href="#displayAdmin" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="displayAdmin" data-bs-parent="#optionsParent">Admin</a>
-        </li>
-        <span class="flex-grow-1"></span>
-        <li class="nav-item">
-            <form class="input-group" role="search" method="post" action="{{ route('search') }}">
-                @csrf
-                <select name="searchFilter" class="btn border border-primary col-auto rounded-start">
-                    <option value="">Filter</option>
-                    <option value="firstname">First name</option>
-                    <option value="lastname">Last name</option>
-                    <option value="email">Email</option>
-                    <option value="phone_number">Phone number</option>
-                    <option value="address">Address</option>
-                    <option value="city">City</option>
-                </select>
-                <input class="form-control" type="search" placeholder="Search users" aria-label="Search" name="searchInput">
-                <button class="btn btn-outline-primary" type="submit">Search</button>
-            </form>
-        </li>
-        <li class="nav-item">
-
-        </li>
-
-    </ul>
+        </div>
+    </div>
+    
 
 
-
+<div class="row bg-black-op position-relative py-3 rounded" style="box-shadow: 0 5px 15px #6c757d;">
     <!-- user block -->
-    <div class="row collapse" id="addOptions">
-        <!-- USERS SEARCCH -->
+    <div class=" col-auto" id="addOptions">
+        
         <div class="col-12 mb-4">
-            <p class="m-0 p-0 lead d-block ms-4">User - Display</p>
+            
             <div class="nav-item btn-group" role="group" aria-label="Default button group">
                 <div class="dropdown btn-group">
                     <button class="btn btn-outline-primary border-end-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Role
+                        Show by Role
                     </button>
                     <ul class="dropdown-menu">
                         @foreach($roles as $role)
@@ -63,71 +78,69 @@ $caseTypes = CaseType::all();
                         @endforeach
                     </ul>
                 </div>
-                <button type="button" class="btn btn-outline-primary"><a href="{{ route('userall', ['param' => 'all']) }}" style="text-decoration:none;">All Users</a></button>
+                <button type="button" class="btn btn-outline-primary"><a href="{{ route('userall', ['param' => 'all']) }}" style="text-decoration:none;">Show All Users</a></button>
 
             </div>
         </div>
         <div class="col-12 mb-4" id="">
-            <p class="m-0 p-0 lead d-block ms-4">User - Add</p>
-            @foreach($roles as $role)
             <div class="btn-group" role="group" aria-label="Form & role group">
-                <button type="button" class="btn btn-outline-{{ $role->name == 'Client' ? 'secondary' : 'primary' ;  }}" data-bs-target="#add{{ $role->name }}ByForm" data-bs-toggle="modal" aria-expanded="false" aria-controls="add{{ $role->name }}ByForm" data-bs-parent="#addParent">User form & role-{{ $role->name }}</button>
+                <span class="input-group-text rounded-end-0 bg-transparent border-primary border-top-0 border-bottom-0">Add</span>
+                <button type="button" class="btn btn-outline-primary" data-bs-target="#addClientByForm" data-bs-toggle="modal" aria-expanded="false" 
+                aria-controls="addClientByForm" data-bs-parent="#addParent">Form & role Client</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-target="#addLawyerByForm" data-bs-toggle="modal" aria-expanded="false" 
+                aria-controls="addLawyerByForm" data-bs-parent="#addParent">Form & role Lawyer</button>
             </div>
-            @endforeach
-            <span class="btn btn-outline-primary disabled"></span>
-            @foreach($roles as $role)
-            @if($role->name != 'Client')
-            <div class="btn-group" role="group" aria-label="Role & id group">
-                <button type="button" class="btn btn-outline-primary" data-bs-target="#add{{ $role->name }}ById" data-bs-toggle="modal" aria-expanded="false" aria-controls="add{{ $role->name }}ById" data-bs-parent="#addParent">{{ $role->name }}-role by ID</button>
-            </div>
-            @endif
-            @endforeach
         </div>
         <div class="col-12">
-            <p class="m-0 p-0 lead d-block ms-4">User - Edit</p>
-            <div class="btn-group" role="group" aria-label="Form & role group">
-                <button type="button" class="btn btn-outline-primary" data-bs-target="#" data-bs-toggle="modal" aria-expanded="false" aria-controls="#" data-bs-parent="#addParent">Edit by ID</button>
+        <div class="btn-group" role="group" aria-label="Role & id group">
+            <span class="input-group-text rounded-end-0 bg-transparent border-primary border-top-0 border-bottom-0">Add</span>
+                <button type="button" class="btn btn-outline-primary" data-bs-target="#addLawyerById" data-bs-toggle="modal" aria-expanded="false" 
+                aria-controls="addLawyerById" data-bs-parent="#addParent">Lawyer-role by ID</button>
             </div>
-            <p class="m-0 p-0 lead d-block ms-4">User - Delete</p>
-            <button type="button" class="btn btn-outline-primary" data-bs-target="#" data-bs-toggle="modal" aria-expanded="false" aria-controls="#" data-bs-parent="#addParent">Delete by ID</button>
+            <div class="btn-group" role="group" aria-label="Form & role group">
+                <button type="button" class="btn btn-outline-primary" data-bs-target="#editUserById" data-bs-toggle="modal" aria-expanded="false" 
+                aria-controls="#editUserById" data-bs-parent="#addParent">Edit User by ID</button>
+            </div>
+            
+            <button type="button" class="btn btn-outline-primary" data-bs-target="#deleteUserById" data-bs-toggle="modal" aria-expanded="false" 
+            aria-controls="#deleteUserById" data-bs-parent="#addParent">Delete User by ID</button>
         </div>
 
     </div>
     <!-- Legal case buttons  -->
     <!--
-    <div class="row text-center collapse" id="displayLegalCase">
-        <div class="col-12 mb-4">
-            <p class="m-0 p-0 lead d-block ms-4">Case - Display</p>
-            <div class="nav-item btn-group" role="group" aria-label="Default button group">
-                <div class="dropdown btn-group">
-                    <button class="btn btn-outline-success border-end-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Status
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('status', ['param' => 'Open']) }}">Open</a></li>
-                        <li><a class="dropdown-item" href="{{ route('status', ['param' => 'Closed']) }}">Closed</a></li>
-                        <li><a class="dropdown-item" href="{{ route('status', ['param' => 'Pending']) }}">Pending</a></li>
-                    </ul>
-                </div>
-                <button type="button" class="btn btn-outline-success"><a href="{{ route('caseall', ['param' => 'all']) }}" style="text-decoration:none;">All Cases</a></button>
-                <div class="dropdown btn-group">
-                    <button class="btn btn-outline-success rounded-end" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Type
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end w-100">
-                        @foreach($caseTypes as $caseType)
-                        <li><a class="dropdown-item" href="{{ route('type', ['param' => $caseType->id]) }}">{{ $caseType->name }}</a></li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
+        -->
+    <div class="col-auto  position-absolute top-0 start-50 translate-middle-x py-3" id="displayLegalCase">
+        
+    <div class="nav-item btn-group col-auto" role="group" aria-label="Default button group">
+        <div class="dropdown btn-group">
+            <button class="btn btn-outline-success border-end-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Status
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ route('status', ['param' => 'Open']) }}">Open</a></li>
+                <li><a class="dropdown-item" href="{{ route('status', ['param' => 'Closed']) }}">Closed</a></li>
+                <li><a class="dropdown-item" href="{{ route('status', ['param' => 'Pending']) }}">Pending</a></li>
+            </ul>
         </div>
-
+        <button type="button" class="btn btn-outline-success"><a href="{{ route('caseall', ['param' => 'all']) }}" style="text-decoration:none;"
+        class="text-success">All Cases</a></button>
+        <div class="dropdown btn-group">
+            <button class="btn btn-outline-success rounded-end" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Type
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end w-100">
+                @foreach($caseTypes as $caseType)
+                <li><a class="dropdown-item" href="{{ route('type', ['param' => $caseType->id]) }}">{{ $caseType->name }}</a></li>
+                @endforeach
+            </ul>
+        </div>
     </div>
--->
-    <div class="row collapse text-end" id="displayAdmin">
+    </div>
+    <!-- Admin -->
+    <div class=" col-auto ms-auto text-end" id="displayAdmin">
         <div class="col-12 mb-4">
-            <p class="m-0 p-0 lead d-block ms-4">Admin</p>
+            
             <div class="btn-group" role="group" aria-label="Admin buttons group">
                 <button type="button" class="btn btn-outline-danger" data-bs-target="#m" data-bs-toggle="modal" aria-expanded="false" aria-controls="" data-bs-parent="#">Add admin - form</button>
                 <button type="button" class="btn btn-outline-danger" data-bs-target="#m" data-bs-toggle="modal" aria-expanded="false" aria-controls="" data-bs-parent="#">Make user admin - ID</button>
@@ -142,7 +155,7 @@ $caseTypes = CaseType::all();
             <button type="button" class="btn btn-outline-danger" data-bs-target="#m" data-bs-toggle="modal" aria-expanded="false" aria-controls="" data-bs-parent="#">Delete admin user - ID</button>
         </div>
     </div>
-
+</div>
     <?php // Modals 
     ?>
     @foreach($roles as $role) <?php // --------------------------------- implement store, then update role on that user 
@@ -186,34 +199,33 @@ $caseTypes = CaseType::all();
     </div>
 
     @if($role->name !== 'Client')
-
+<!-- Lawyer By Id -->
     <div class="modal fade" id="add{{ $role->name }}ById" tabindex="-1" aria-labelledby="add{{ $role->name }}ByIdLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="add{{ $role->name }}ByIdLabel">{{ $role->name }}-role by ID</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('update') }}" method="post">
+                
+                <form action="{{ route('admin.update') }}" method="post">
                     @csrf
                     @method('patch')
-                    <div class="modal-body">
-                        <input type="text" class="form-control" placeholder="User id">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">{{ $role->name }}</span>
-                            <input type="hidden" class="form-control" placeholder="Role id" readonly name="role_id" value="{{  $role->id }}">
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="modal-header">
+                        <button type="button" class="btn-close me-auto ms-0 " data-bs-dismiss="modal" aria-label="Close"></button>
                         <button class="btn btn-outline-primary">Add {{ $role->name }}</button>
                     </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" placeholder="Add user ID to apply role Lawyer">
+                        <input type="text" class="form-control my-2" placeholder="Lawyer specialization" name="specialization" value="">
+                        <input type="text" class="form-control" placeholder="Years of exp" name="yearsOfExp" value="">
+                        <input type="hidden" class="form-control" placeholder="" readonly name="role_id" value="{{  $role->id }}">
+                        
+                    </div>
+                    
                 </form>
             </div>
         </div>
     </div>
     @endif
     @endforeach
+    
     <div class="modal fade d-none" id="" tabindex="-1" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -237,7 +249,24 @@ $caseTypes = CaseType::all();
     ?>
     <div class="row">
         <div class="col-12">
-
+        <div class="modal fade" id="editUserById" tabindex="-1" aria-labelledby="editUserByIdLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" method="post">
+                    @csrf
+                    @method('patch')
+                    <div class="modal-header">
+                        <button type="button" class="btn-close me-auto ms-0 " data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button class="btn btn-outline-primary">Search</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" placeholder="User ID">
+                        <small class="text-center d-block">In order to edit user data, first search</small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
         </div>
     </div>
 
@@ -245,11 +274,29 @@ $caseTypes = CaseType::all();
     ?>
     <div class="row">
         <div class="col-12">
-
+        <div class="modal fade" id="deleteUserById" tabindex="-1" aria-labelledby="deleteUserByIdLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" method="post">
+                    @csrf
+                    @method('patch')
+                    <div class="modal-header">
+                        <button type="button" class="btn-close me-auto ms-0 " data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button class="btn btn-outline-danger">Delete</button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" placeholder="User ID">
+                        <small class="text-center d-block text-danger">Delete action is final, proceed with caution</small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
         </div>
     </div>
     <?php // Search  
     ?>
 
 
-</x-app-layout>
+</body>
+</html>

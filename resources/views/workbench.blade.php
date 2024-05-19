@@ -42,7 +42,7 @@
         </div>
 
         <input type="text" class="form-control col" aria-label="Search" value="Search">
-        <button class="btn btn-outline-primary " type="submit">Search</button>
+        <button class="btn btn-outline-primary " type="submit"><i class="bi bi-search"></i></button>
     </div>
 
 </nav>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LegalCase;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
@@ -12,46 +13,25 @@ class AdminController extends Controller
 {
     public function index()
     {
-
-        return view('admin.panel');
+        return view('admin.login');
     }
 
-    public function show(Request $request, $param)
+    public function show(Request $request)
     {
-        $path = $request->path();
-        $urlArray = explode('/', $path);
-        $isUser = false;
-        $displayData = '';
+        // Validate the form input
+        $validatedData = $request->validate([
+            'password' => 'required',
+            'phrase' => 'required',
+        ]);
 
-        foreach ($urlArray as $key => $value) {
-            switch ($value) {
-                case 'type':
-                    $displayData = LegalCase::where('case_type_id', $param)->with('user')->paginate(10);
-                    break;
-                case 'status':
-                    $displayData = LegalCase::where('status', strtolower($param))->with('user')->paginate(10);
-                    break;
-                case 'role':
-                    $displayData = User::where('role_id', $param)->with('role', 'legalCases')->paginate(10);
-                    break;
-                case 'all':
-                    $displayData = ($isUser) ? User::paginate(10) : LegalCase::paginate(10);
-                    break;
-                case 'user':
-                    $isUser = true;
-                    break;
-            }
+        // Attempt to authenticate the user
+        if (Auth::guard('admin')->attempt(['password' => $validatedData['password'], 'pass_phrase' => $validatedData['phrase']])) {
+            // Authentication successful
+            return view('admin.panel');
+        } else {
+            // Authentication failed
+            return redirect()->back()->withErrors(['error' => 'Invalid credentials']);
         }
-
-        if (!$displayData) {
-            return redirect()->back();
-        }
-
-        // need to make it short - fix views
-        if ($isUser) {
-            return view('admin.show-user', ['users' => $displayData, 'filter' => $param]);
-        }
-        return view('admin.show-case', ['legalCases' => $displayData, 'filter' => $param]);
     }
 
 

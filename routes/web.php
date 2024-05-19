@@ -63,15 +63,19 @@ Route::group(['prefix' => 'case', 'middleware' => ['auth']], function () {
     // Legal case - display - one case
     Route::get('/details/{id}', [LegalCaseController::class, 'details'])->name('details');
 });
-//Route::get('/details/{id}', [LegalCaseController::class, 'details'])->name('details');
-Route::get('/test', function () {
-    return view('/test');
-})->name('test');
-Route::get('/panel', [AdminController::class, 'index'])->name('kurcina');
-//Route::get('/case/type/{param}', [AdminController::class, 'show'])->name('type');
-//Route::get('/case/status/{param}', [AdminController::class, 'show'])->name('status');
+// Admin group
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(){
 
-//Route::get('/case/{param}', [AdminController::class, 'show'])->name('caseall');
+    Route::get('/login', [AdminController::class, 'index'])->name('admin.login');
+    Route::post('/panel', [AdminController::class, 'show'])->name('admin.panel');
+
+    Route::patch('/update', [AdminController::class, 'edit'])->name('admin.update');
+});
+
+
+
+
+
 Route::get('/user/{param}', [AdminController::class, 'show'])->name('userall');
 
 Route::post('/user/search', [AdminController::class, 'search'])->name('search');
