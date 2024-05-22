@@ -96,7 +96,7 @@ class LegalCaseController extends Controller
     public function edit(Request $request, $id)
     {
         // Get the legal case with the given ID
-        $legalCase = LegalCase::where('id', $id)->with('user')->first();
+        $legalCase = LegalCase::where('id', $id)->first();
 
         // Get lawyer
         $lawyer = Auth::user();

@@ -45,14 +45,14 @@
               <div class="card px-0">
                 <div class="card-header d-flex justify-content-between align-items-center">
                   <p class="p-0 m-0 d-inline-block">ID: {{ $legalCase->user->id }}</p>
-                  <p class="p-0 m-0 d-inline-block">First name: {{ $legalCase->user->firstname }}</p>
-                  <p class="p-0 m-0 d-inline-block">Last name: {{ $legalCase->user->lastname }}</p>
+                  <p class="p-0 m-0 d-inline-block">First name: {{ ucfirst($legalCase->user->firstname) }}</p>
+                  <p class="p-0 m-0 d-inline-block">Last name: {{ ucfirst($legalCase->user->lastname) }}</p>
                 </div>
                 <div class="card-body">
                   <div class="d-flex justify-content-between align-items-center">
                     <p class="p-0 m-0 d-inline-block">ID: {{ $legalCase->id }}</p>
                     <p class="p-0 m-0 d-inline-block">Type: {{ $legalCase->caseType->name }}</p>
-                    <p class="p-0 m-0 d-inline-block">Status: {{ $legalCase->status }}</p>
+                    <p class="p-0 m-0 d-inline-block">Status: {{ ucfirst($legalCase->status) }}</p>
                     <p class="p-0 m-0 d-inline-block">Create: {{ $legalCase->created_at->format('d-m-Y') }}</p>
                     <p class="p-0 m-0 d-inline-block">Start: {{ $legalCase->start_date }}</p>
 

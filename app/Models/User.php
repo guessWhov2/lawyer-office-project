@@ -72,4 +72,10 @@ class User extends Authenticatable
     public function isLawyer(){
         return strtolower($this->role->name) == 'lawyer';
     }
+    public function isClient(){
+        if (!$this->relationLoaded('role')) {
+            $this->load('role');
+        }
+        return (strtolower($this->role->name) === "client")? true:false;
+    }
 }

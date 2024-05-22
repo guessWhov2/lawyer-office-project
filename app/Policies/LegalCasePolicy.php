@@ -26,22 +26,23 @@ class LegalCasePolicy
      * Determine whether the user can view the model.
      */
     public function view(User $user, LegalCase $legalCase): Response
-    {
+    {Log::info('prva');
+    
         // Check is user owner of the case
         if ($user->id === $legalCase->user_id) {
             return Response::allow();
         }
 
-        // Case's with status pending can be seen by all lawyers - meaning they arent in process/taken
         if ($user->isLawyer()) {
+            // Lawyer who is in charge of the case can see it always
+            if ($user->id === $legalCase->lawyer->user_id) {Log::info('aaaa');
+                return Response::allow();
+            }Log::info('User id:' . $user->id);Log::info('Lawyer id:' . $legalCase->lawyer_id); Log::info($user->id === $legalCase->lawyer?->user_id);
+            // Case's with status pending can be seen by all lawyers - meaning they arent in process/taken
             if (strtolower($legalCase->status) === 'pending') {
                 return Response::allow();
             }
 
-            // Lawyer who is in charge of the case can see it always
-            if ($user->id === $legalCase->lawyer?->user_id) {
-                return Response::allow();
-            }
         }
         return Response::deny('UNAUTHORIZED ACTION.');
     }

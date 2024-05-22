@@ -23,7 +23,7 @@
                         <button class="accordion-button collapsed border-end border-5 
                         {{ ($legalCase->status == 'open')?'border-primary':'border-secondary';}}
                         {{ ($legalCase->status == 'closed')?'border-success':'';}}" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $legalCase->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $legalCase->id }}">
-                            <p class="lead p-0 m-0">Title: {{ $legalCase->title }}</p>
+                            <p class="lead p-0 m-0">Title: {{ ucfirst($legalCase->title) }}</p>
                         </button>
                     </h2>
                     <div id="flush-collapse{{ $legalCase->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushParent">
@@ -32,18 +32,18 @@
                                 <div class="card px-0">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <p class="p-0 m-0 d-inline-block">ID: {{ $legalCase->user->id }}</p>
-                                        <p class="p-0 m-0 d-inline-block">First name: {{ $legalCase->user->firstname }}</p>
-                                        <p class="p-0 m-0 d-inline-block">Last name: {{ $legalCase->user->lastname }}</p>
+                                        <p class="p-0 m-0 d-inline-block">First name: {{ ucfirst($legalCase->user->firstname) }}</p>
+                                        <p class="p-0 m-0 d-inline-block">Last name: {{ ucfirst($legalCase->user->lastname) }} </p>
                                     </div>
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <p class="p-0 m-0 d-inline-block">ID: {{ $legalCase->id }}</p>
-                                            <p class="p-0 m-0 d-inline-block">Type: {{ $legalCase->caseType->name }}</p>
-                                            <p class="p-0 m-0 d-inline-block">Status: {{ $legalCase->status }}</p>
+                                            <p class="p-0 m-0 d-inline-block">Type: {{ ucfirst($legalCase->caseType->name) }}</p>
+                                            <p class="p-0 m-0 d-inline-block">Status: {{ ucfirst($legalCase->status) }}</p>
                                             <p class="p-0 m-0 d-inline-block">Date: {{ $legalCase->created_at->format('d-m-Y') }}</p>
                                             @if($legalCase->status == 'open')
-                                            <p class="p-0 m-0 d-inline-block">Status: {{ $legalCase->lawyer->firstname }}</p>
-                                            <p class="p-0 m-0 d-inline-block">Status: {{ $legalCase->lawyer->lastname }}</p>
+                                            <p class="p-0 m-0 d-inline-block">Status: {{ ucfirst($legalCase->lawyer->firstname) }}</p>
+                                            <p class="p-0 m-0 d-inline-block">Status: {{ ucfirst($legalCase->lawyer->lastname) }}</p>
                                             @endif
                                         </div>
                                         <p class="card-text my-2"><strong>Description: </strong>{{ $legalCase->description }}</p>
