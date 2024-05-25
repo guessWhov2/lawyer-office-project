@@ -8,6 +8,7 @@ use App\Http\Controllers\LegalCaseController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\UserController;
 use App\Models\Lawyer;
 use App\Models\LegalCase;
 use Illuminate\Support\Facades\File;
@@ -22,7 +23,7 @@ Route::get('/lawyers', function () {
     $filePaths = File::glob(public_path('assets/img/team/*.jpg'));
     return view('team', ['lawyers' => $lawyers, 'filePaths' => $filePaths]);
 })->name('team');
-Route::get('about', function (){
+Route::get('about', function () {
     return view('about');
 })->name('about');
 
@@ -64,26 +65,32 @@ Route::group(['prefix' => 'case', 'middleware' => ['auth']], function () {
     Route::get('/details/{id}', [LegalCaseController::class, 'details'])->name('details');
 });
 // Admin group
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
 
     Route::get('/login', [AdminController::class, 'index'])->name('admin.login');
     Route::post('/panel', [AdminController::class, 'show'])->name('admin.panel');
 
+    // provjeri ovaj update
     Route::patch('/update', [AdminController::class, 'edit'])->name('admin.update');
 });
 
+Route::get('/user/search/{f?}/{i?}', [UserController::class, 'index'])->name('user.search');
 
 
 
-
+/*
 Route::get('/user/{param}', [AdminController::class, 'show'])->name('userall');
-
-Route::post('/user/search', [AdminController::class, 'search'])->name('search');
-
 Route::get('/user/role/{param}', [AdminController::class, 'show'])->name('role');
-
 Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('user.edit');
 Route::post('/user/{id}', [AdminController::class, 'update'])->name('save');
+*/
 
+
+
+
+//
+Route::get('/back', function () {
+    return redirect()->back();
+})->name('back');
 
 require __DIR__ . '/auth.php';

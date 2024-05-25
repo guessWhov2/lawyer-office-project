@@ -13,7 +13,7 @@ class LegalCaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $csvFile = fopen(storage_path('app/mock-data/mock-data-legal-case'), 'r');
+        $csvFile = fopen(storage_path('app/mock-data/mock-data-legal-case.csv'), 'r');
 
         // Skip header row
         fgetcsv($csvFile);

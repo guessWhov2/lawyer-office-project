@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $csvFile = fopen(storage_path('app/mock-data/mock-data-user'), 'r');
+        $csvFile = fopen(storage_path('app/mock-data/mock-data-user.csv'), 'r');
 
         while (($data = fgetcsv($csvFile)) !== false) {
             DB::table('users')->insert([
@@ -25,6 +25,8 @@ class UserSeeder extends Seeder
                 'address' => $data[4],
                 'city' => $data[5],
                 'password' => Hash::make($data[6]),
+                'role_id' => $data[7],
+                'remember_token' => $data[8],
                 // Add other columns as needed
             ]);
         }

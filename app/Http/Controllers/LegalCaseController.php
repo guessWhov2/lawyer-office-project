@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\Lawyer;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Gate;
@@ -99,7 +100,7 @@ class LegalCaseController extends Controller
         $legalCase = LegalCase::where('id', $id)->first();
 
         // Get lawyer
-        $lawyer = Auth::user();
+        $lawyer = Lawyer::where('user_id', Auth::user()->id)->first();
         if (!$legalCase) {
             return redirect()->back();
         }
@@ -123,7 +124,7 @@ class LegalCaseController extends Controller
                     break;
             }
         }
-        return redirect()->back();
+        return redirect('dashboard');
     }
 
     //Legal case display

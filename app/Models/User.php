@@ -65,7 +65,7 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 // Methods
-    public function getFullNameAttribute()
+    public function getFullName()
     {
         return "{$this->firstname} {$this->lastname}";
     }
@@ -77,5 +77,11 @@ class User extends Authenticatable
             $this->load('role');
         }
         return (strtolower($this->role->name) === "client")? true:false;
+    }
+    public function isStaff(){
+        return strtolower($this->role->name) == 'staff';
+    }
+    public function isAdmin(){
+        return strtolower($this->role->name) == 'admin';
     }
 }

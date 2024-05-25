@@ -19,7 +19,7 @@ class AdminMiddleware
         if (Auth::check() && strtolower(Auth::user()->role->name) === 'admin') {
             return $next($request);
         }
-
-        return redirect('/')->with('message', 'Page dosnt exist'); // Who is u?
+        //return redirect('/')->with('message', 'Page dosnt exist'); // Who is u?
+        return abort(404);
     }
 }

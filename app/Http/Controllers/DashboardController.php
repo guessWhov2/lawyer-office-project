@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Log;
 class DashboardController extends Controller
 {
 
-
     public function index(Request $request)
     {
         // Retrieve the authenticated user
@@ -23,7 +22,7 @@ class DashboardController extends Controller
         // Initialize variables
         $legalCases = [];
         $lawyers = [];
-        $clients = []; 
+        $clients = [];
         $meetings = [];
         // Check if the user is authenticated
         if ($user) {
@@ -37,25 +36,29 @@ class DashboardController extends Controller
                     $meetings = Appointment::where('user_id', $user->id)->get();
                     break;
                 case 'lawyer':
-                    $legalCases = LegalCase::where('lawyer_id', $user->id)->where('status', 'open')->paginate(10);
+                    $lawyer = Lawyer::where('user_id', $user->id)->first();
+                    $legalCases = LegalCase::where('lawyer_id', $lawyer->id)->where('status', 'open')->paginate(10);
                     $role = Role::where('name', 'client')->first();
                     $clients = User::where('role_id', $role->id)->get();
-                    $lawyer = Lawyer::where('user_id', $user->id)->first();
                     $meetings = Appointment::where('lawyer_id', $lawyer->id)->get();
-                    break;  
+                    break;
             }
         }
 
 
         // Data for view
-        return view('dashboard', 
-        ['legalCases' => $legalCases,
-        'filter' => 'Open',
-        'user' => $user, 
-        // TODO: no need for userrole, u can access it thru user 
-        'userRole' => $userRole, 
-        'lawyers' => $lawyers, 
-        'meetings' => $meetings,
-        'clients' => $clients]);
+        return view(
+            'dashboard',
+            [
+                'legalCases' => $legalCases,
+                'filter' => 'Open',
+                'user' => $user,
+                // TODO: no need for userrole, u can access it thru user 
+                'userRole' => $userRole,
+                'lawyers' => $lawyers,
+                'meetings' => $meetings,
+                'clients' => $clients
+            ]
+        );
     }
 }

@@ -13,7 +13,7 @@ class NoteSeeder extends Seeder
      */
     public function run(): void
     {
-        $csvFile = fopen(storage_path('app/mock-data/mock-data-note-250.csv'), 'r');
+        $csvFile = fopen(storage_path('app/mock-data/mock-data-note.csv'), 'r');
 
         // Skip header row
         fgetcsv($csvFile);

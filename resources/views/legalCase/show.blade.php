@@ -7,8 +7,8 @@
     <div class="container">
         <div class="row my-2 py-2">
             <div class="col-12 d-flex ">
-                <a href="{{ route('dashboard') }}" class="btn btn-outline-primary">Back to dashboard</a>
-                <p class="lead p-0 m-0 d-inline-block mx-auto" style="transform:translateX(-50%);">Searched by <strong>{{ $filter}}</strong></p>
+                <a href="{{ route('dashboard') }}" class="btn btn-outline-primary">Back</a>
+                <p class="lead p-0 m-0 d-inline-block mx-auto" style="transform:translateX(-50%);">Searched by <strong>{{ ucfirst($filter) }}</strong></p>
             </div>
             <div class="row justify-content-center">
                 <div class="col-auto">{{ $legalCases }}</div>
@@ -32,18 +32,17 @@
                                 <div class="card px-0">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <p class="p-0 m-0 d-inline-block">ID: {{ $legalCase->user->id }}</p>
-                                        <p class="p-0 m-0 d-inline-block">First name: {{ ucfirst($legalCase->user->firstname) }}</p>
-                                        <p class="p-0 m-0 d-inline-block">Last name: {{ ucfirst($legalCase->user->lastname) }} </p>
+                                        <p class="p-0 m-0 d-inline-block">Client: {{ ucfirst($legalCase->user->getFullName()) }}</p>
+                                        <p class="p-0 m-0 d-inline-block">Date: {{ $legalCase->created_at->format('Y-m-d') }}</p>
                                     </div>
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <p class="p-0 m-0 d-inline-block">ID: {{ $legalCase->id }}</p>
                                             <p class="p-0 m-0 d-inline-block">Type: {{ ucfirst($legalCase->caseType->name) }}</p>
                                             <p class="p-0 m-0 d-inline-block">Status: {{ ucfirst($legalCase->status) }}</p>
-                                            <p class="p-0 m-0 d-inline-block">Date: {{ $legalCase->created_at->format('d-m-Y') }}</p>
                                             @if($legalCase->status == 'open')
-                                            <p class="p-0 m-0 d-inline-block">Status: {{ ucfirst($legalCase->lawyer->firstname) }}</p>
-                                            <p class="p-0 m-0 d-inline-block">Status: {{ ucfirst($legalCase->lawyer->lastname) }}</p>
+                                            <p class="p-0 m-0 d-inline-block">Lawyer: {{ ucfirst($legalCase->lawyer->user->getFullName()) }}</p>
+                                            <p class="p-0 m-0 d-inline-block">Date: {{ $legalCase->start_date }}</p>
                                             @endif
                                         </div>
                                         <p class="card-text my-2"><strong>Description: </strong>{{ $legalCase->description }}</p>
