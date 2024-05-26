@@ -21,11 +21,11 @@
         @include('layouts.navigation')
     </header>
     @if(session('message'))
-        <div class="alert alert-info position-absolute top-50 start-50 translate-middle w-auto" role="alert">
-            <p class="m-0 p-0 d-inline-block me-4">{{ session('message') }}</p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
+    <div class="alert alert-info position-absolute top-50 start-50 translate-middle w-auto" role="alert">
+        <p class="m-0 p-0 d-inline-block me-4">{{ session('message') }}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     <div class="row justify-content-around m-0">
         <span class="d-inline-block col-auto"></span>
         <div class=" mt-5 col-auto">
@@ -40,12 +40,12 @@
     </div>
     <div class="row m-0 mt-5 me-5 justify-content-end">
         <div class="col-auto text-center mt-5 me-5">
-            
+
             <a href="{{ route('register') }}" class="btn btn-outline border btnMeetTeam px-5 rounded-pill me-5 fs-4">Join for free</a>
         </div>
     </div>
     @include('components.footer')
-    
+
 </body>
 
 </html>

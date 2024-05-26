@@ -26,9 +26,9 @@ $url = asset('assets/img/lawyer-1.jpg');
 "></div>
 
                 <div class="card-body collapse  position-absolute top-0 start-0 bg-dark" style="--bs-bg-opacity: .5;" id="collapseLawyerInfo{{ $lawyer->user->id }}">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <p class="card-text">{{ ucfirst($lawyer->user->firstname) }} {{ ucfirst($lawyer->user->lastname) }}</p>
+                    <h5 class="card-title">{{ ucfirst($lawyer->user->getFullname()) }}</h5>
+                    <p class="card-text">Add lawyer description - text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">{{ ucfirst($lawyer->specialization) }}</p>
                 </div>
             </div>
             <?php ++$count ?>

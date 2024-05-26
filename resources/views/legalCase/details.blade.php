@@ -37,8 +37,8 @@
             <div class="col-auto">
                 <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#closeCaseModal">Close case</button>
             </div>
-             <!-- Modal -->
-             <div class="modal fade" id="closeCaseModal" tabindex="-1" aria-labelledby="closeCaseModalLabel" aria-hidden="true">
+            <!-- Modal -->
+            <div class="modal fade" id="closeCaseModal" tabindex="-1" aria-labelledby="closeCaseModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form action="{{ route('add') }}" method="post">
@@ -50,7 +50,7 @@
                             <div class="modal-body">
                                 <p class="lead p-0 m-2">Are you sure you want to close this case?</p>
                             </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -72,9 +72,9 @@
                     <div class="collapse position-absolute top-0 start-0" id="collapseClientInformation" data-bs-parent="#informationParent">
                         <div class="card card-body">
                             <div class="input-group">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Client: {{ $selectedCase->user->firstname }} {{ $selectedCase->user->lastname}}</span>
-                                <span class="input-group-text" id="inputGroup-sizing-default">Contact: {{ $selectedCase->user->email }}/{{ $selectedCase->user->phone_number }}</span>
-                                <span class="input-group-text" id="inputGroup-sizing-default">Location: {{ $selectedCase->user->address}}, {{ $selectedCase->user->city}}</span>
+                                <span class="input-group-text" id="inputGroup-sizing-default">{{ $selectedCase->user->getFullName() }}</span>
+                                <span class="input-group-text" id="inputGroup-sizing-default">{{ $selectedCase->user->email }}/{{ $selectedCase->user->phone_number }}</span>
+                                <span class="input-group-text" id="inputGroup-sizing-default">{{ $selectedCase->user->address}}, {{ $selectedCase->user->city}}</span>
                             </div>
                         </div>
                     </div>
@@ -101,12 +101,8 @@
             <div class="col-12"><span class="border-bottom border-light">Description:</span> {{ $selectedCase->description }}</div>
         </div>
         <div class="row mb-5 position-relative">
-            @if(session('message'))
-            <div class="alert alert-info position-absolute top-0 start-50 translate-middle w-auto" role="alert">
-                <p class="m-0 p-0 d-inline-block me-4">{{ session('message') }}</p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
+            @include('components.success-message')
+            @include('components.errors-message')
             @foreach($notes as $note)
             <div class="mb-5">
                 <div class="row justify-content-between border-bottom border-start">

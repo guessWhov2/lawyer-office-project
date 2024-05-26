@@ -24,19 +24,17 @@ class LegalCaseController extends Controller
         // Policy  check
         $user = User::find($request->input('user_id'));
         if ($user->cannot('create', LegalCase::class)) {
-            return redirect()->back()->with('message', 'Error - contact stuff for more information');
+            return redirect()->back()->withErrors(['error', 'Contact stuff for more information']);
         }
 
         // Validate the incoming request data
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:128',
             'case_type_id' => 'required|exists:case_types,id',
             'description' => 'required|string:255',
             'user_id' => 'required"exists:users,id'
         ]);
 
-        // Add the authenticated user's ID to the validated data
-        //$validatedData['user_id'] = 
         if ($validator) {
             // Create a new legal case with the validated data
             $legalCase = LegalCase::create(
@@ -47,10 +45,7 @@ class LegalCaseController extends Controller
                     'case_type_id' => $request->input('case_type_id')
                 ]
             );
-
-            $message = session('message');
         }
-        // Optionally, you can return a response indicating success
         return redirect()->back()->with([
             'message' => 'Legal case created successfully',
             'legalCase' => $legalCase,
@@ -61,20 +56,20 @@ class LegalCaseController extends Controller
     public function index(Request $request, $param)
     {
         $userCheck = Auth::user();
-        // use denies instead of cannot - said by tabnine
+        // use denies instead of cannot - said by tabnine  
         if ($userCheck->cannot('viewany', LegalCase::class)) {
             abort(403, 'Unauthorized action.');
         }
         $path = $request->path();
         $urlArray = explode('/', $path);
 
-        $displayData = '';
+        //$displayData = '';
 
         foreach ($urlArray as $key => $value) {
             switch ($value) {
                 case 'type':
                     $displayData = LegalCase::where('case_type_id', $param)->with('user')->paginate(10);
-                    $param = $displayData->first()?->caseType->name ;
+                    $param = $displayData->first()?->caseType->name;
                     break;
                 case 'status':
                     $displayData = LegalCase::where('status', strtolower($param))->with('user')->paginate(10);
@@ -84,10 +79,8 @@ class LegalCaseController extends Controller
                     break;
             }
         }
-
-
         if (!$displayData) {
-            return redirect()->back();
+            return redirect()->back()->with('message', 'No search results found');
         }
 
         return view('legalCase.show', ['legalCases' => $displayData, 'filter' => $param]);
@@ -124,10 +117,10 @@ class LegalCaseController extends Controller
                     break;
             }
         }
-        return redirect('dashboard');
+        return redirect('dashboard')->with('message', 'Case successfully updated');
     }
 
-    //Legal case display
+    // Legal case display
     // Show details about case
     public function details(Request $request, $id)
     {
@@ -135,7 +128,7 @@ class LegalCaseController extends Controller
 
         $user = User::where('id', Auth::user()->id)->first();
         if ($user->cannot('view', $legalCase)) {
-            abort(403, 'Unauthorized action.');
+            abort(403, 'Unauthorized action');
         }
         $notes = Note::where('legal_case_id', $id)->orderBy('created_at', 'desc')->paginate(5);
         return view('legalCase.details', ['selectedCase' => $legalCase, 'notes' => $notes]);

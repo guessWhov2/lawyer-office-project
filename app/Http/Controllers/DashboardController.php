@@ -29,6 +29,7 @@ class DashboardController extends Controller
             // Get role to display right content
             $userRole = Role::where('id', $user->role_id)->first();
 
+            // TODO: Use methods for case instead of hard-coded values
             switch (strtolower($userRole->name)) {
                 case 'client':
                     $legalCases = LegalCase::where('user_id', $user->id)->paginate(10);
@@ -44,7 +45,6 @@ class DashboardController extends Controller
                     break;
             }
         }
-
 
         // Data for view
         return view(

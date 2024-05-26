@@ -1,9 +1,8 @@
 <nav class="nav shadow-lg mb-3 p-2 bg-body-tertiary border-top rounded mt-3 mx-3 justify-content-between">
     <div class="btn-group" role="group" aria-label="Default button group">
         <form action="{{ route('user.search') }}" method="get">
-
             <button type="submit" class="btn btn-outline-primary">All Clients
-                <input type="hidden" name="searchFilter" value="all">
+                <input type="hidden" name="f" value="all">
             </button>
         </form>
     </div>
@@ -33,11 +32,10 @@
         </div>
     </div>
     <span class="flex-grow-1"></span>
-    <form class="input-group col flex-shrink-1" action="{{ route('user.search') }}" method="post">
-        @csrf
+    <form class="input-group col flex-shrink-1" action="{{ route('user.search') }}" method="get">
         <div class="btn-group">
             <button type="button" class="btn btn-outline-primary rounded-end-0 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Filter</button>
-            <input type="hidden" readonly name="searchFilter" value="">
+            <input type="hidden" readonly name="f" value="">
             <ul class="dropdown-menu text-center" id="idSearchParent">
                 <li><a class="dropdown-item" value="firstname">First name</a></li>
                 <li><a class="dropdown-item" value="lastname">Last name</a></li>
@@ -47,17 +45,12 @@
                 <li><a class="dropdown-item" value="city">City</a></li>
             </ul>
         </div>
-
-        <input type="text" class="form-control col" aria-label="Search" placeholder="Search" name="searchInput">
+        <input type="text" class="form-control col" aria-label="Search" placeholder="Search" name="i" value="">
         <button class="btn btn-outline-primary " type="submit"><i class="bi bi-search"></i></button>
-
     </form>
 
 </nav>
 
-<!--
-    <div class="d-flex align-items-center btn btn-outline-primary"><span class="dropdown-toggle"><span>Filter</span></span></div>
--->
 <script>
     const parentSearch = document.getElementById('idSearchParent');
     const elemSearch = parentSearch.getElementsByTagName('li');

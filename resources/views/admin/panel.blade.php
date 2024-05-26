@@ -2,9 +2,9 @@
 
 use App\Models\CaseType;
 use App\Models\Role;
+use Illuminate\Support\Facades\Cache;
 
-$roles = Role::all();
-$caseTypes = CaseType::all();
+$caseTypes = Cache::get('caseTypes');
 ?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="dark">
@@ -30,14 +30,18 @@ $caseTypes = CaseType::all();
     </style>
 </head>
 
-<body class="container mt-5">
-
+<body class="container mt-5 position-relative">
+    @include('components.success-message')
+    @include('components.errors-message')
     <div class="row m-0 my-4 justify-content-between align-items-center border-bottom">
         <div class="col-auto">
             <h6 class="display-6">Admin panel</h6>
         </div>
         <div class="col-auto flex-grow-1">
-            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{ route('logout') }}">Logout</a>
+            <form action="{{ route('admin.logout') }}" method="post">
+                @csrf
+                <button class="btn btn-sm btn-outline-light border-start-0 border-top-0 border-end-0" type="submit">Logout</button>
+            </form>
         </div>
         <div class="col-auto">
             <form class="input-group col flex-shrink-1" action="{{ route('user.search') }}" method="get">

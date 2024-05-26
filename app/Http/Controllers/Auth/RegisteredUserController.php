@@ -30,19 +30,20 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // TODO: Change phone number data type everywhere
         $request->validate([
             'firstname' => ['required', 'string', 'max:16'],
             'lastname' => ['required', 'string', 'max:16'],
-            'phone_number' => ['required', 'string', 'max:15'],             
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],             
+            'phone_number' => ['required', 'string', 'max:16'],
+            'email' => ['required', 'string', 'email', 'max:48', 'unique:users'],
             'address' => ['required', 'string', 'max:32'],
             'city' => ['required', 'string', 'max:16'],
             'password' => ['required', 'string', 'min:8', Rules\Password::defaults()],
         ]);
-        // Assign the role
-        if($request->input('role_id')){
+        // Assign the role - use ternary operator
+        if ($request->input('role_id')) {
             $clientRole = $request->input('role_id');
-        }else{
+        } else {
             $clientRole = Role::where('name', 'Client')->first();
         }
         $user = User::create([
@@ -55,11 +56,10 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'role_id' => $clientRole->id,
         ]);
-        
+
         $user->save();
 
         event(new Registered($user));
-        
 
         return redirect(route('login', absolute: false));
     }

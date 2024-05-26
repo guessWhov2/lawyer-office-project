@@ -25,7 +25,7 @@ class ConfirmablePasswordController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        if (! Auth::guard('web')->validate([
+        if (!Auth::guard('web')->validate([
             'email' => $request->user()->email,
             'password' => $request->password,
         ])) {
@@ -33,10 +33,9 @@ class ConfirmablePasswordController extends Controller
                 'password' => __('auth.password'),
             ]);
         }
-
+        // Use this so there is no need to validate again in same session
         $request->session()->put('auth.password_confirmed_at', time());
 
         return redirect()->intended(route('profile.edit', absolute: false));
-        
     }
 }

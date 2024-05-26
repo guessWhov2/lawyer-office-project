@@ -6,18 +6,15 @@ $caseTypes = Cache::get('caseTypes');
 ?>
 <x-app-layout>
     <x-slot name="header">
-    @if($user->isLawyer())    
+        @if($user->isLawyer())
         @include('workbench')
-    @endif
+        @endif
     </x-slot>
 
-    <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded container mb-2 h-100">
-        @if(session('message'))
-        <div class="alert alert-info position-absolute top-50 start-50 translate-middle w-auto" style="z-index:9999;" role="alert">
-            <p class="m-0 p-0 d-inline-block me-4">{{ session('message') }}</p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
+    <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded container mb-2 h-100 position-relative">
+        @include('components.success-message')
+        @include('components.errors-message')
+
         @if(Auth::user()->role->name == 'Client')
         @include('client.client-dash')
         @elseif(Auth::user()->role->name == "Lawyer")

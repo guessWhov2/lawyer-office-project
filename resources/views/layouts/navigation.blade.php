@@ -5,7 +5,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: transparent !important;">
 
   <div class="container-fluid position-relative mx-4 mt-2">
-    <a class="navbar-brand fs-3" href="#">@include('components.application-logo')</a>
+    <a class="navbar-brand fs-3" href="{{ route('home') }}">@include('components.application-logo')</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,7 +38,7 @@
         @auth
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Profile</a>
-          <ul class="dropdown-menu dropdown-menu-end">
+          <ul class="dropdown-menu dropdown-menu-end text-center">
             <li><a class="dropdown-item" href="{{ route('password-confirm') }}">Settings</a></li>
 
             <li>
@@ -53,4 +53,3 @@
   </div>
 
 </nav>
-

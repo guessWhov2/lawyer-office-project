@@ -29,12 +29,12 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
         $request->session()->regenerate();
-        
-        
+
+
         $caseTypes = Cache::rememberForever('caseTypes', function () {
             return CaseType::all();
         });
-        
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
@@ -44,12 +44,11 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
-
+        Auth::guard('admin')->logout();
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
         Cache::flush();
-        
+
         return redirect('/');
     }
 }

@@ -14,7 +14,12 @@ $count = 0;
                 <div class="col-auto">{{ $users->appends(['f' => $filter, 'i' => $input])->links() }}</div>
             </div>
         </div>
-
+        @if(session('message'))
+        <div class="alert alert-info position-absolute top-50 start-50 translate-middle w-auto" style="z-index:9999;" role="alert">
+            <p class="m-0 p-0 d-inline-block me-4">{{ session('message') }}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
         <div class="row my-4">
             <div class="accordion accordion-flush border-bottom border-start py-2 rounded" id="accordionFlushParent">
                 @foreach($users as $user)
@@ -33,7 +38,6 @@ $count = 0;
                                         <p class="p-0 m-0">First name: {{ $user->firstname }}</p>
                                         <p class="p-0 m-0">Last name: {{ $user->lastname }}</p>
                                         <p class="p-0 m-0">Email: {{ $user->email }}</p>
-
                                     </div>
 
                                     <div class="card-body">
@@ -65,11 +69,12 @@ $count = 0;
                     <div class="modal fade" id="editUserModal{{$user->id}}" tabindex="-1" aria-labelledby="editUserModal{{$user->id}}Label" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header justify-content-between">
-                                    <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    <button type="submit" class="btn btn-outline-primary">Save changes</button>
-                                </div>
-                                <form action="">
+                                <form action="{{ route('user.update', ['id' => $user->id]) }}" method="post">
+                                    @csrf
+                                    <div class="modal-header justify-content-between">
+                                        <button type="button" class="btn-close ms-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="submit" class="btn btn-outline-primary">Save changes</button>
+                                    </div>
                                     <div class="modal-body">
                                         <!-- ID -->
                                         <div class="input-group mb-3">
@@ -135,10 +140,10 @@ $count = 0;
                                         <!-- Lawyer fields -->
                                         <div class="collapse" id="idLawyerFields">
                                             <div class="input-group mb-3">
-                                                <input name="specialization" value="{{ $user->lawyer?->specialization }}" type="text" class="form-control selectTextClass" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" autocomplete="specialization" placeholder="Specialization" required>
+                                                <input name="specialization" value="{{ $user->lawyer?->specialization }}" type="text" class="form-control selectTextClass" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" autocomplete="specialization" placeholder="Specialization">
                                             </div>
                                             <div class="input-group mb-3">
-                                                <input name="years_exp" value="{{ $user->lawyer?->years_of_exp }}" type="text" class="form-control selectTextClass" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" autocomplete="years_exp" placeholder="Years of exp" required>
+                                                <input name="years_exp" value="{{ $user->lawyer?->years_of_exp }}" type="text" class="form-control selectTextClass" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" autocomplete="years_exp" placeholder="Years of exp">
                                             </div>
                                         </div>
 
@@ -151,7 +156,7 @@ $count = 0;
                     <div class="modal fade" id="deleteUserModal{{$user->id}}" tabindex="-1" aria-labelledby="deleteUserModal{{$user->id}}Label" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form action="" method="post">
+                                <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="post">
                                     @csrf
                                     @method('delete')
                                     <div class="modal-header justify-content-between">
@@ -212,8 +217,12 @@ $count = 0;
         editUserInputFields[i].addEventListener('click', function(e) {
             e.target.select();
         });
-        editUserInputFields[i].addEventListener('focus', function(e) {
-            e.target.select();
-        });
+        try {
+            editUserInputFields[i].addEventListener('focus', function(e) {
+                e.target.select();
+            });
+        } catch (Exception) {
+            console.log(Exception);
+        }
     }
 </script>
